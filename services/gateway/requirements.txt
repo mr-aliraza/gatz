@@ -1,0 +1,8 @@
+Django==3.0.8
+djangogrpcframework==0.2
+djangorestframework==3.11.0
+grpcio==1.30.0
+grpcio-tools==1.30.0
+protobuf==3.12.2
+psycopg2-binary==2.8.5
+requests==2.24.0
