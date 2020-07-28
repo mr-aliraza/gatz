@@ -3,6 +3,7 @@ from json import JSONDecodeError
 import grpc
 import requests
 import re
+from google.protobuf.json_format import MessageToDict
 
 from django.http import HttpResponse, JsonResponse
 from django.core import serializers
@@ -15,14 +16,19 @@ def get_user(request):
     response = {}
     with grpc.insecure_channel('localhost:50051') as channel:
         stub = user_pb2_grpc.UserControllerStub(channel)
-        for user in stub.List(user_pb2.UserListRequest()):
-            response = str(user).replace("\n", ", ")
-            response = response.replace("\\", "")
-            response = "{" + response[:-2] + "}"
-            print(response)
+        user_list = stub.List(user_pb2.UserListRequest())
+        # result = MessageToDict(user_list._response_deserializer)
+        # result = user_list.__dict__
+        # print(user_list.response_data)
+        for user in user_list:
+            # print(MessageToDict(user))
+            # response = str(user).replace("\n", ", ")
+            # response = response.replace("\\", "")
+            response = MessageToDict(user)
+            # print(response)
             # response = json.loads(response)
-            response = json.dumps(response)
-    return HttpResponse(response, content_type="application/json")
+            # response = json.dumps(response)
+    return JsonResponse(response)
 
 
 @api_view(["POST"])
