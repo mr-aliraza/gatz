@@ -1,0 +1,2 @@
+python manage.py generateproto --model django.contrib.auth.models.User --fields id,username,email --file demo.proto
+python -m grpc_tools.protoc --proto_path=./ --python_out=./ --grpc_python_out=./ ./user.proto

@@ -1,5 +1,4 @@
 .idea
 .vscode
-services/user/env
-services/gateway/env
+**/env
 **/__pycache__

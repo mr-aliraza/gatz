@@ -7,3 +7,8 @@ from .serializers import UserProtoSerializer
 class UserService(generics.ModelService):
     queryset = User.objects.all()
     serializer_class = UserProtoSerializer
+
+
+# class UserCreateService(generics.CreateService):
+#     queryset = User.objects.all()
+#     serializer_class = UserProtoSerializer

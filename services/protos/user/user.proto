@@ -18,11 +18,12 @@ message User {
     string last_name = 3;
     string mobile = 4;
     string email = 5;
-    string gender = 6;
-    string date_of_birth = 7;
-    bool is_active = 8;
-    int32 status = 9;
-    int32 role = 10;
+    string password = 6;
+    string gender = 7;
+    string date_of_birth = 8;
+    bool is_active = 9;
+    int32 status = 10;
+    int32 role = 11;
 }
 
 message UserListRequest {
