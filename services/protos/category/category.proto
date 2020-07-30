@@ -1,0 +1,71 @@
+syntax = "proto3";
+
+package user;
+
+import "google/protobuf/empty.proto";
+
+service CategoryController {
+    rpc List(CategoryListRequest) returns (stream Category) {}
+    rpc Create(Category) returns (Category) {}
+    rpc Retrieve(CategoryRetrieveRequest) returns (Category) {}
+    rpc Update(Category) returns (Category) {}
+    rpc Destroy(Category) returns (google.protobuf.Empty) {}
+}
+
+message Category {
+    string id = 1;
+    string name = 2;
+    string description = 3;
+    string parent_id = 4;
+}
+
+message CategoryListRequest {
+}
+
+message CategoryRetrieveRequest {
+    string id = 1;
+}
+
+service CategoryAttributeController {
+    rpc List(CategoryAttributeListRequest) returns (stream CategoryAttribute) {}
+    rpc Create(CategoryAttribute) returns (CategoryAttribute) {}
+    rpc Retrieve(CategoryAttributeRetrieveRequest) returns (CategoryAttribute) {}
+    rpc Update(CategoryAttribute) returns (CategoryAttribute) {}
+    rpc Destroy(CategoryAttribute) returns (google.protobuf.Empty) {}
+}
+
+message CategoryAttribute {
+    string id = 1;
+    string category_id = 2;
+    string attribute_id = 3;
+}
+
+message CategoryAttributeListRequest {
+    string category_id = 1;
+}
+
+message CategoryAttributeRetrieveRequest {
+    string id = 1;
+}
+
+service CategoryVariantController {
+    rpc List(CategoryVariantListRequest) returns (stream CategoryVariant) {}
+    rpc Create(CategoryVariant) returns (CategoryVariant) {}
+    rpc Retrieve(CategoryVariantRetrieveRequest) returns (CategoryVariant) {}
+    rpc Update(CategoryVariant) returns (CategoryVariant) {}
+    rpc Destroy(CategoryVariant) returns (google.protobuf.Empty) {}
+}
+
+message CategoryVariant {
+    string id = 1;
+    string category_id = 2;
+    string variant_id = 3;
+}
+
+message CategoryVariantListRequest {
+    string category_id = 1;
+}
+
+message CategoryVariantRetrieveRequest {
+    string id = 1;
+}
