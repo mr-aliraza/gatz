@@ -1,0 +1,74 @@
+syntax = "proto3";
+
+package user;
+
+// import "google/protobuf/empty.proto";
+
+service VariantController {
+    rpc List(VariantListRequest) returns (stream Variant) {}
+    rpc Create(Variant) returns (Variant) {}
+    rpc Retrieve(VariantRetrieveRequest) returns (Variant) {}
+    rpc RetrieveParents(VariantListRequest) returns (stream Variant) {}
+    rpc RetrieveChilds(VariantRetrieveRequest) returns (stream Variant) {}
+    rpc Update(Variant) returns (Variant) {}
+    rpc Destroy(VariantDeleteRequest) returns (Variant) {}
+}
+
+message Variant {
+    string id = 1;
+    string name = 2;
+    string description = 3;
+    int32 user_id = 4;
+    int32 status = 5;
+    string result = 6;
+    string message = 7;
+}
+
+message VariantListRequest {
+}
+
+message VariantRetrieveRequest {
+    string id = 1;
+}
+
+message VariantDeleteRequest {
+    string id = 1;
+    int32 user_id = 2;
+}
+
+service VariantOptionController {
+    rpc List(OptionListRequest) returns (stream VariantOption) {}
+    rpc VariantOptionList(VariantOptionListRequest) returns (stream VariantOption) {}
+    rpc Create(VariantOption) returns (VariantOption) {}
+    rpc Retrieve(VariantOptionRetrieveRequest) returns (VariantOption) {}
+    rpc Update(VariantOption) returns (VariantOption) {}
+    rpc Destroy(VariantOption) returns (VariantOption) {}
+}
+
+message VariantOption {
+    string id = 1;
+    string name = 2;
+    string description = 3;
+    string attribute_id = 4;
+    string attribute_name = 5;
+    int32 user_id = 6;
+    int32 status = 7;
+    string result = 8;
+    string message = 9;
+}
+
+message OptionListRequest {
+}
+
+message VariantOptionListRequest {
+    string attribute_id = 1;
+}
+
+message VariantOptionRetrieveRequest {
+    string id = 1;
+}
+
+message VariantOptionDeleteRequest {
+    string id = 1;
+    int32 user_id = 2;
+}

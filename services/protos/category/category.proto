@@ -8,8 +8,10 @@ service CategoryController {
     rpc List(CategoryListRequest) returns (stream Category) {}
     rpc Create(Category) returns (Category) {}
     rpc Retrieve(CategoryRetrieveRequest) returns (Category) {}
+    rpc RetrieveParents(CategoryListRequest) returns (stream Category) {}
+    rpc RetrieveChilds(CategoryRetrieveRequest) returns (stream Category) {}
     rpc Update(Category) returns (Category) {}
-    rpc Destroy(Category) returns (google.protobuf.Empty) {}
+    rpc Destroy(CategoryDeleteRequest) returns (Category) {}
 }
 
 message Category {
@@ -17,6 +19,11 @@ message Category {
     string name = 2;
     string description = 3;
     string parent_id = 4;
+    string parent_name = 5;
+    int32 user_id = 6;
+    int32 status = 7;
+    string result = 8;
+    string message = 9;
 }
 
 message CategoryListRequest {
@@ -24,6 +31,11 @@ message CategoryListRequest {
 
 message CategoryRetrieveRequest {
     string id = 1;
+}
+
+message CategoryDeleteRequest {
+    string id = 1;
+    int32 user_id = 2;
 }
 
 service CategoryAttributeController {

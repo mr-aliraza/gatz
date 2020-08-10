@@ -1,5 +1,5 @@
 from crud import Session
-from models import Category, Base
+from models import Variant, Base
 from config import DATABASE_URI
 from sqlalchemy import create_engine
 
@@ -7,7 +7,7 @@ engine = create_engine(DATABASE_URI)
 
 # session = Session()
 
-# categories = session.query(Category).all()
+# categories = session.query(Attribute).all()
 
 # for category in categories:
 #     description = input(f"Description for '{category.name}': $")

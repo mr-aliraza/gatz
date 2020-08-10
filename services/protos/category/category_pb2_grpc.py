@@ -2,7 +2,7 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-import category_pb2 as category__pb2
+from . import category_pb2 as category__pb2
 from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
 
 
@@ -30,6 +30,16 @@ class CategoryControllerStub(object):
                 request_serializer=category__pb2.CategoryRetrieveRequest.SerializeToString,
                 response_deserializer=category__pb2.Category.FromString,
                 )
+        self.RetrieveParents = channel.unary_stream(
+                '/user.CategoryController/RetrieveParents',
+                request_serializer=category__pb2.CategoryListRequest.SerializeToString,
+                response_deserializer=category__pb2.Category.FromString,
+                )
+        self.RetrieveChilds = channel.unary_stream(
+                '/user.CategoryController/RetrieveChilds',
+                request_serializer=category__pb2.CategoryRetrieveRequest.SerializeToString,
+                response_deserializer=category__pb2.Category.FromString,
+                )
         self.Update = channel.unary_unary(
                 '/user.CategoryController/Update',
                 request_serializer=category__pb2.Category.SerializeToString,
@@ -37,8 +47,8 @@ class CategoryControllerStub(object):
                 )
         self.Destroy = channel.unary_unary(
                 '/user.CategoryController/Destroy',
-                request_serializer=category__pb2.Category.SerializeToString,
-                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                request_serializer=category__pb2.CategoryDeleteRequest.SerializeToString,
+                response_deserializer=category__pb2.Category.FromString,
                 )
 
 
@@ -58,6 +68,18 @@ class CategoryControllerServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def Retrieve(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def RetrieveParents(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def RetrieveChilds(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -93,6 +115,16 @@ def add_CategoryControllerServicer_to_server(servicer, server):
                     request_deserializer=category__pb2.CategoryRetrieveRequest.FromString,
                     response_serializer=category__pb2.Category.SerializeToString,
             ),
+            'RetrieveParents': grpc.unary_stream_rpc_method_handler(
+                    servicer.RetrieveParents,
+                    request_deserializer=category__pb2.CategoryListRequest.FromString,
+                    response_serializer=category__pb2.Category.SerializeToString,
+            ),
+            'RetrieveChilds': grpc.unary_stream_rpc_method_handler(
+                    servicer.RetrieveChilds,
+                    request_deserializer=category__pb2.CategoryRetrieveRequest.FromString,
+                    response_serializer=category__pb2.Category.SerializeToString,
+            ),
             'Update': grpc.unary_unary_rpc_method_handler(
                     servicer.Update,
                     request_deserializer=category__pb2.Category.FromString,
@@ -100,8 +132,8 @@ def add_CategoryControllerServicer_to_server(servicer, server):
             ),
             'Destroy': grpc.unary_unary_rpc_method_handler(
                     servicer.Destroy,
-                    request_deserializer=category__pb2.Category.FromString,
-                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+                    request_deserializer=category__pb2.CategoryDeleteRequest.FromString,
+                    response_serializer=category__pb2.Category.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -162,6 +194,38 @@ class CategoryController(object):
             call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
+    def RetrieveParents(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_stream(request, target, '/user.CategoryController/RetrieveParents',
+            category__pb2.CategoryListRequest.SerializeToString,
+            category__pb2.Category.FromString,
+            options, channel_credentials,
+            call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def RetrieveChilds(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_stream(request, target, '/user.CategoryController/RetrieveChilds',
+            category__pb2.CategoryRetrieveRequest.SerializeToString,
+            category__pb2.Category.FromString,
+            options, channel_credentials,
+            call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
     def Update(request,
             target,
             options=(),
@@ -188,8 +252,8 @@ class CategoryController(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/user.CategoryController/Destroy',
-            category__pb2.Category.SerializeToString,
-            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            category__pb2.CategoryDeleteRequest.SerializeToString,
+            category__pb2.Category.FromString,
             options, channel_credentials,
             call_credentials, compression, wait_for_ready, timeout, metadata)
 

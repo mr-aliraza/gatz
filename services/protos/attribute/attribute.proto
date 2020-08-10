@@ -1,0 +1,74 @@
+syntax = "proto3";
+
+package user;
+
+// import "google/protobuf/empty.proto";
+
+service AttributeController {
+    rpc List(AttributeListRequest) returns (stream Attribute) {}
+    rpc Create(Attribute) returns (Attribute) {}
+    rpc Retrieve(AttributeRetrieveRequest) returns (Attribute) {}
+    rpc RetrieveParents(AttributeListRequest) returns (stream Attribute) {}
+    rpc RetrieveChilds(AttributeRetrieveRequest) returns (stream Attribute) {}
+    rpc Update(Attribute) returns (Attribute) {}
+    rpc Destroy(AttributeDeleteRequest) returns (Attribute) {}
+}
+
+message Attribute {
+    string id = 1;
+    string name = 2;
+    string description = 3;
+    int32 user_id = 4;
+    int32 status = 5;
+    string result = 6;
+    string message = 7;
+}
+
+message AttributeListRequest {
+}
+
+message AttributeRetrieveRequest {
+    string id = 1;
+}
+
+message AttributeDeleteRequest {
+    string id = 1;
+    int32 user_id = 2;
+}
+
+service AttributeOptionController {
+    rpc List(OptionsListRequest) returns (stream AttributeOption) {}
+    rpc AttributeOptionList(AttributeOptionListRequest) returns (stream AttributeOption) {}
+    rpc Create(AttributeOption) returns (AttributeOption) {}
+    rpc Retrieve(AttributeOptionRetrieveRequest) returns (AttributeOption) {}
+    rpc Update(AttributeOption) returns (AttributeOption) {}
+    rpc Destroy(AttributeOption) returns (AttributeOption) {}
+}
+
+message AttributeOption {
+    string id = 1;
+    string name = 2;
+    string description = 3;
+    string attribute_id = 4;
+    string attribute_name = 5;
+    int32 user_id = 6;
+    int32 status = 7;
+    string result = 8;
+    string message = 9;
+}
+
+message OptionsListRequest {
+}
+
+message AttributeOptionListRequest {
+    string attribute_id = 1;
+}
+
+message AttributeOptionRetrieveRequest {
+    string id = 1;
+}
+
+message AttributeOptionDeleteRequest {
+    string id = 1;
+    int32 user_id = 2;
+}
